@@ -203,7 +203,7 @@ body{
 
 /*Diseño de nuestra ventana final en la caja de resultados con una estética de sobre de hogwarts y demás estilos*/
 .caja-resultados{
-    background-image: url('/imágenes/sobre.png');
+    background-image: url('sobre.png');
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
