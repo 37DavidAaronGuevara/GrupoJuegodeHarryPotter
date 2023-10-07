@@ -1,0 +1,512 @@
+/*En esta instrucción, importamos el paquete de fuentes con estilo de la película Harry Potter*/
+@font-face {
+    font-family: 'Harry Potter';
+    src: url('https://cdn2.hubspot.net/hubfs/678613/Projects/Harry%20Potter%20Battle%20Game/ParryHotter.ttf') format('truetype')
+}
+
+/*Aplicando estos estilos que deberán de tener la mayoría de textos y espacios de la página*/
+* {
+    font-family: 'Harry Potter';
+    color: black;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*Clase alterna para modificar el tamaño a la fuente al texto de puntuación*/
+.tusPuntos{
+    font-size: 20px;
+}
+
+/*Estilo general del cuerpo de contenido*/
+body{
+    margin: 0;
+    font-size: 16px;
+}
+
+/*Ocultar nuestro audio para que no lo veamos, simplemente lo escuchemos*/
+#audio{
+    display:none;
+}
+
+/*Estilo para el inicio y final de nuestro juego*/
+.caja-inicio, .caja-resultados {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    max-width: 1000px;
+    height: 570px;
+    margin: 20px auto;
+    padding: 10px;
+    background-image: url('imágenes/fondohogwarts.jpg');
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.534);
+}
+
+.caja-inicio div{
+    max-width: 1000px;
+    max-height: 700px;
+    text-align: center;
+}
+
+.caja-inicio h1{
+    margin: 0px 60px;
+    font-size: 80px;
+    font-weight: bold;
+}
+
+.caja-inicio p{
+    margin: 10px;
+    font-size: 35px;
+    font-style: italic;
+}
+
+/* texto parpadeante en la página de inicio */
+.texto-destello{
+    margin-top: 2vh;
+    font-size: 40px;
+    animation: parpadear 1s infinite;
+}
+/* Agrega este CSS para ocultar inicialmente el div y darle estilo */
+.oculto {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Estilo para el botón de cerrar */
+  .cerrar-btn {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+/*Animación para que el texto de instrucción que nos dice que iniciemos parpadee*/
+@keyframes parpadear{
+    0%   {opacity: 1;}
+    50%  {opacity: 0;}
+    100% {opacity: 1;} 
+}
+
+/*Estilo de los botones*/
+.btn{
+    display: flex;
+    justify-content: center;
+    width: 100px;
+    height: 70px;
+    text-align: center;
+    padding: 3px 10px 3px 10px;
+    font-weight: bold;
+    font-size: 20px;
+    margin: auto;
+    letter-spacing: 1px;
+    background: linear-gradient(rgba(235, 111, 9, 0.986), rgba(224, 27, 37, 0.986));
+    text-decoration: none;
+    border: 3px solid #000000;
+    border-radius: 10px;
+    transition: .1s ease-in;
+}
+.iniciando{
+    width:200px;
+}
+.cerrar-btn{
+    color:red;
+    width:30px;
+}
+.btn:hover{
+    background: linear-gradient(rgba(255, 188, 2, 0.986), rgba(255, 251, 2, 0.986));
+    box-shadow: 2px 2px 8px #888888;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.botones-puntuación{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-left: 5vh;
+    margin-right: 5vh;
+}
+
+/*Estilo del contenedor del juego*/
+.caja-juego {
+    background: url("imágenes/fondo2.jpg") no-repeat;
+    background-position: center center;
+    background-attachment: absolute;
+    background-size: cover;
+    max-width: 1000px;
+    height: 570px;
+    display: flex;
+    flex-direction: column;
+    margin: 5px auto;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: url("imágenes/varita.png"), auto;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.534);
+}
+
+/*Estilos para nuestros textos de encabezados o subtítulos*/
+.sección-título{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    font-size: 25px;
+    justify-content: center;
+    margin:0;
+}
+
+.sección-puntos-tiempo{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    font-size: 20px;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.664);
+}
+
+.sección-puntos, .sección-tiempo{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+#puntos, #tiempo-restante{
+    margin-left: 30px;
+    color:#3d1100
+}
+
+/*Animación al golpear, que permite que Harry se oculte cuando es golpeado y se transporte a otra casilla*/
+.golpe{
+    content: "";
+    height: 100px;
+    width: 88px;
+    position: absolute;
+    transition: transform .2s linear;
+    transform: scale(1.2);
+    opacity: 0;
+}
+
+/*Transparencia de 1 al golpear*/
+.golpe-activo{
+    opacity: 1;
+}
+
+/*Diseño de nuestra ventana final en la caja de resultados con una estética de sobre de hogwarts y demás estilos*/
+.caja-resultados{
+    background-image: url('/imágenes/sobre2.png');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 580px;
+}
+.caja-resultados h1{
+    margin: 60px 60px 30px 60px;
+    font-size: 80px;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.74);
+}
+
+.caja-resultados table{
+    display: flex;
+    margin: 30px auto;
+}
+
+.caja-resultados td{
+    font-size: 50px;
+    font-weight: bold;
+    justify-content: center;
+}
+
+.cuadrícula{
+    max-width: 300vh;
+    max-height: 100vh;
+    display: flex;
+    flex-flow: row wrap;
+    align-content: center;
+    justify-content: center;
+    margin: 60px;
+}
+
+/*Madriguera de Potter*/
+.casilla{
+    height: 200px;
+    width: 200px;  
+    background-image: url("imágenes/topo.png");
+    background-size: 200px;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0px 10px;
+}
+
+/*Imagen de Potter*/
+.topo{
+    background-image: url("imágenes/harrypotter.png");
+    background-size: 200px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/*Ocultar cada rasgo de alguna sección para que no se sobrepongan*/
+.ocultar{
+    display: none;
+}
+
+/*Otros estilos para los grid o cuadriculas y los contenedores de puntuacion o textos funcionales*/
+#puntuacionesDiv {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #d3b694;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px; 
+  }
+.cuadrícula{
+    margin: -5vh 60px 60px 60px;
+}
+.final{
+    font-size: 40px;
+}
+.total-topos-golpeados{
+    color:#3d1100;
+}
+
+/*Responsivo para computadoras portátiles o de escritorio*/
+@media (max-width: 1024px){
+    html{
+        background-color: rgb(74, 216, 138);
+        background-position: center;
+    }
+
+    .caja-inicio, .caja-juego, .caja-resultados{
+        width: 100%;
+        height: 100vh;
+        left: 0;
+        right: 0;
+        max-width: none;
+        max-height: none;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        margin: 0;
+        padding-top: 7vh;
+        box-shadow: none;
+        border-radius: 0px;
+    }
+
+    .caja-inicio h1, .caja-resultados h1{
+        font-size: 8vh;
+        padding: 3vh 1vw;
+    }
+
+    .caja-inicio p, .caja-juego h2{
+        font-size: 5vh;
+        margin: 0 5vw;
+    }
+
+    .texto-destello{
+        margin-top: 3vh;
+        margin-bottom: 3vh;
+        font-size: 5vh;
+    }
+
+    .btn{
+        width: 30vh;
+        height: 6vw;
+        font-size: 3vh;
+    }
+
+    .caja-juego{
+        background-position: left top;
+        cursor: auto;
+    }
+
+    .caja-juego h1{
+        font-size: 5vh;
+    }
+    
+    .caja-juego h2{
+        padding-bottom: 20px;
+    }
+    .tusPuntos{
+        font-size: 20px;
+    }
+    .cuadrícula{
+        margin: -5vh 200px 200px 200px;
+    }
+
+    .casilla{
+        height: 25vh;
+        width: 25vh;
+        background-size: 25vh;
+    }
+
+    .topo{
+        background-size: 25vh;
+    }
+    .caja-resultados td{
+        font-size: 4vh;
+    }
+    .caja-resultados{
+        padding-top: 25vh;
+    }
+}
+
+/*Responsivo para Tablets*/
+@media (max-width: 768px){
+    .caja-resultados{
+        padding-top: 20vh;
+    }
+    .btn{
+        width: 25vh;
+        height: 6vw;
+        font-size: 3vh;
+        margin-top: 5px;
+    }
+    .final{
+        font-size: 26px;;
+    }
+    .tusPuntos{
+        font-size: 20px;
+    }
+    .botones-puntuación{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .cuadrícula{
+        margin: -5vh 100px 100px 100px;
+    }
+
+    .casilla{
+        height: 20vh;
+        width: 20vh;
+        background-size: 20vh;
+    }
+
+    .topo{
+        background-size: 20vh;
+    }
+}
+/*Responsivo para móviles de vista L*/
+@media (max-width: 480px){
+    .caja-inicio, .caja-juego, .caja-resultados{
+        padding-top: 4vh;
+    }
+
+    .caja-inicio h1, .caja-resultados h1{
+        margin: 0px 2vh;
+        font-size: 5vh;
+        padding: 2vh 1vw;
+    }
+
+    .caja-inicio p, .caja-juego h2{
+        font-size: 3vh;
+        margin: 0 2vw;
+    }
+
+    .texto-destello{
+        margin-top: 3vh;
+        margin-bottom: 3vh;
+        font-size: 3vh;
+    }
+
+    .btn{
+        width: 25vh;
+        height: 8vw;
+        font-size: 2vh;
+    }
+
+    .caja-juego h1{
+        font-size: 4vh;
+    }
+
+    .caja-juego h2{
+        padding-bottom: 20px;
+    }
+
+    .cuadrícula{
+        margin: 20vh 2vh 2vh 2vh;
+    }
+
+    .casilla{
+        height: 15vh;
+        width: 15vh;
+        background-size: 15vh;
+    }
+
+    .topo{
+        background-size: 15vh;
+    }
+
+    #puntos, #tiempo-restante{
+        margin-left: 3vw;
+    }
+    .caja-resultados{
+        background-image: url('imágenes/sobre2.jpg');
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+}
+
+/*Responsivo para móviles de vista M*/
+@media (max-width: 320px){
+    .btn{
+        width: 20vh;
+        height: 10vw;
+        font-size: 2vh;
+    }
+    .tusPuntos{
+        font-size: 10px;
+    }
+    .cuadrícula{
+        margin: 20vh 2vh 2vh 2vh;
+    }
+
+    .casilla{
+        height: 10vh;
+        width: 10vh;
+        background-size: 10vh;
+    }
+
+    .topo{
+        background-size: 10vh;
+    }
+    .caja-resultados{
+        background-image: url('imágenes/sobre2.jpg');
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+}
+
+@media (max-width: 240px){
+    .cuadrícula{
+        margin: 10vh 2vh 2vh 2vh;
+    }
+    .caja-resultados{
+        background-image: url('imágenes/sobre2.jpg');
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+}

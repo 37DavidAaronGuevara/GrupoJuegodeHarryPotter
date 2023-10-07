@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harry Potter</title>
+    <link rel="icon" href="imágenes/iconopotter.png" sizes="16x16">
+    <link rel="stylesheet" href="estilo.css">
+    <title>Harry Potter</title>
+</head>
+<body>
+    <!-- Contenedor del inicio de nuestro juego -->
+    <div class="caja-inicio">
+        <div>
+            <h1>Golpea a Harry Potter</h1>
+            <p>Haz tu mejor puntuación durante 30 segundos</p>
+            <h2 class="texto-destello">Haz clic en el botón iniciar para comenzar</h2>
+        </div>
+        <div class="caja-inicio-btn">
+            <button class="btn iniciando" onclick="iniciarJuego()">¡INICIAR!</button>
+        </div>
+    </div>
+    <!-- Audio que contiene el tema musical de Harry Potter, el cuál se reproducirá continuamente-->
+    <audio id="audio" autoplay controls loop preload="auto">
+        <source src="sonidos/HarryPotterTema.mp3" type="audio/mp3">
+        Tu navegador no soporta audio HTML5.
+    </audio>
+
+    <!-- Contenedor donde se encuentra el juego para golpear a harry potter  -->
+    <div class="caja-juego ocultar">
+        <div class="sección-título">
+            <h2>¡Golpea a Harry Potter!</h2>
+        </div>
+        <!-- Aquí se almacenará el tiempo y el puntaje realizado durante 30 segundos-->
+        <div class="sección-puntos-tiempo">
+            <div class="sección-puntos">
+                <h2>Puntos:</h2>
+                <h2 id="puntos">0</h2>
+            </div>
+            <div class="sección-tiempo">
+                <h2>Tiempo:</h2>
+                <h2 id="tiempo-restante">30</h2>
+            </div>
+        </div>
+
+        <!-- Contenedor el cual tiene la madriguera donde aparece y se oculta Harry Potter -->
+        <div class="cuadrícula">
+            <div class="casilla" id="1"></div>
+            <div class="casilla" id="2"></div>
+            <div class="casilla" id="3"></div>
+            <div class="casilla" id="4"></div>
+            <div class="casilla" id="5"></div>
+            <div class="casilla" id="6"></div>
+        </div>
+
+        <!-- Contenedor que contiene la imagen para mostrar un rayo al hechizar a Potter -->
+        <div class="golpe">
+            <img src="imágenes/estrellas.png">
+        </div>
+    </div>
+
+    <!-- Contenedor donde se almacena el resultado final de cada intento -->
+    <div class="caja-resultados ocultar">
+        <h2 class="final">¡Tiempo Acabado!</h2>
+        <h2 class="final">Harry Potter te felicita</h2>
+        <table>
+            <tr>
+                <td class="total-topos-golpeados"></td>
+            </tr>
+        </table>
+
+        <!-- Botones funcionales de reintentar, ver récord o volver a inicio -->
+        <div class="botones-puntuación">
+            <button class="btn" onclick="intentarNuevamente()">Reintentar</button>
+            <button class="btn record" onclick="mostrarPuntuaciones()">Récord</button>
+            <button class="btn" onclick="irInicio()">Inicio</button>
+        </div>
+    </div>
+
+    <!-- Ver las puntuaciones y poder cerrar la vista previa de esta ventanita -->
+    <div id="puntuacionesDiv" class="oculto">
+        <button class="cerrar-btn" onclick="ocultarPuntuaciones()"> X </button>
+        <h2 class="tusPuntos">Tu Récord:</h2>
+        <table id="puntuacionesTable">
+        <!-- Aquí se llenarán las puntuaciones -->
+        </table>
+    </div>
+    <script src="juego.js"></script>
+</body>
+</html>
