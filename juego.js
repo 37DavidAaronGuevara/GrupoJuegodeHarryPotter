@@ -126,11 +126,6 @@ function intentarNuevamente() {
 function irInicio() {
   window.location.reload();
 }
-//Constante para el audio
-const audio = document.getElementById('audio');
-
-// Reproduce el audio
-audio.play();
 
 //Función para repetir infinitamente el audio del tema de la canción de Harry Potter
 audio.addEventListener('ended', function() {
